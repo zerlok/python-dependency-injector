@@ -80,6 +80,11 @@ check:
 
 	$(MYPY) tests/typing
 
+check-mypy:
+	# FIXME: replace echo somehow, but do not exit on mypy exit error codes
+	$(MYPY) --config-file tests/mypy/mypy.cfg > reports/mypy.out || echo
+	diff reports/mypy.out tests/mypy/expected.out
+
 test-publish: cythonize
 	# Create distributions
 	$(PYTHON) setup.py sdist
